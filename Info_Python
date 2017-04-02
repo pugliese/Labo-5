@@ -1,0 +1,171 @@
+Antes de siquiera empezar, deberian escribir los imports 
+
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.optimize import curve_fit   ## (Esto es un ejemplo, scipy tiene muchas librerias con distintas funcionalidades, ver abajo)
+from math import *        ## (Python no tiene NINGUNA función distinta de +, -, * y /, pero solo es necesario si no importaron numpy)
+
+La documentación de cada librería puede encontrarse en los siguientes links:
+
+numpy: Manipulación de vectores (acá serían np.array) tipo Octave, la idea es tomar un vector V de python (se definen como en Octave) y
+transformarlo con np.array(V) a un np.array.
+https://docs.scipy.org/doc/numpy/user/index.html
+
+matplotlib: Graficos estilo Octave, la notación es idéntica.
+http://matplotlib.org/contents.html
+
+scipy: Funciones para análisis numérico, si lo necesitás está acá.
+https://docs.scipy.org/doc/scipy/reference/
+
+-------------> CONCEPTOS BASICOS DE PYTHON <-------
+
+PAQUETES E IMPORT
+
+Hay dos formas básicas de importar funciones/constantes de una librería, que llamaremos (1) y (2) y son
+(1) import library as name
+(2) from library import A1 as name1,..., An as namen
+
+Si usamos la forma (1), cualquier funcion/constante de estos paquetes que ustedes quieran usar requerirá que pongan como prefijo "name."
+donde name es el nombre del paquete. El "as name" justamente permite cambiar este "name", que por defecto es el nombre del paquete. Por
+lo tanto, el "as name" es opcional.
+
+Si usamos la forma (2) no necesitaremos usar el prefijo e incluso podemos cambiar el nombre con el que invocaremos a la constante/funcion
+Ai por namei, pudiendo facilitar bastante nuestra notación. En la opción (2), es posible cambiar la lista de Ai por un "*" para indicar
+que queremos "todo con su nombre normal" (Ejemplo, from math import *).
+
+Aunque claramente la forma (2) con "*" parece mucho más práctica para evitar los prefijos, muchas veces los prefijos ofrecen gran
+claridad respecto a "¿¿De donde mierda sacó este tipo esa función??" y evitan conflictos con los nombres. Lo segundo es importante
+porque me permite crear variantes de una función/constante ya existente con el mismo nombre y evitar confusiones.
+Resultaría coherente entonces que para librerías básicas como math o matplotlib.pylab usemos la forma (2) con "*", pero para 
+liberías propias o más complejas es preferible usar (1) y fumarse los prefijos. 
+
+PD: Es posible importar archivos .py hechos por ustedes mismos (sus propias librerías) pero resulta bastante más complicado, así que no
+voy a explicarlo por acá hasta que sea completamente necesario.
+
+
+CAMBIOS BASICOS
+
+Los operadores "++" y "--" para incrementar/decrementar en 1 ya no existen, pero las notaciones "+=", "-=", "*=" y "/=" para las
+asignaciones siguen valiendo.
+
+La operacion "longitud" de un vector es "len" en lugar de "length".
+
+Una bastante paja, Python no tiene una GUI (Graphic User Interface) por defecto como Octave, así para correr un programa deberían usar
+el cmd y moverse a la carpeta del archivo ejemplo.py y escribir "python ejemplo.py" para compilarlo y correrlo.
+Aún así, el Anaconda viene con las GUI IPython y IDLE, pero creo que siguen siendo menos amigable. Por ejemplo, Python solo busca las
+funciones dentro del archivo ejecutado o de las librerias a las que les hagamos import, así que eso de tener funciones distintas en una
+misma carpeta es más tedioso. Es posible crear tu propia libreria, pero es bastante tedioso así que no lo explicaré por ahora.
+
+Por último, a menos que estén en algún GUI, definir variables o aplicar funciones nunca muestra el resultado por pantalla. Por ejemplo,
+"a = 2" no muestra "ans = 2" como en Octave... no muestra nada. Para mostrar variables por pantalla pueden usar la función print v1,..vn
+que muestra las n variables separadas por espacios.
+SI LES INTERESA PROFUNDIZAR, la función print es muy práctica a la hora de escribir resultados de forma amigable. Por ejemplo, si en un
+programa tenemos definidas las variables "edad=11" y "nombre=Eduardo", el llamado
+
+print "Me llamo %s y tengo %d años" %(nombre, edad)
+
+escribe por pantalla "Me llamo Eduardo y tengo 11 años". Lo que hacemos es poner "gaps" diciendole a Python "acá va un tipo T" donde T
+puede ser d para enteros, f para floats, g para doubles y s para strings. Hay notaciones aún más complejas, pero para eso mejor miren
+la documentación de print en https://docs.python.org/2/tutorial/inputoutput.html
+
+INDENTACION
+
+En Python la indentación es esencial, acá no hay end___ así que las funciones, ciclos y condicionales (if) abarcan hasta donde abarque
+la indentación. Además, todas empiezan con un ":". Por ejemplo,
+
+if condicion:
+  .. cuerpo del if..
+else:
+  .. cuerpo del else..
+.. sigue el programa
+
+
+DEFINIR FUNCIONES
+
+Para definir funciones usamos "def" de forma similar a octave, pero sin necesidad de nombrar las variables retornadas. Basicamente,
+
+def f(x1,..,xn):
+  .. cuerpo de la funcion ..
+  return res1,..,resm
+
+donde las resi son los argumentos retornadas (en criollo, resultados). La notación para los argumentos de entrada xi=a para que tomen
+un determinado valor por defecto sigue valiendo. En particular, la notacion para definir funciones en linea de Octave
+f = @(x1,..,xn) res;
+se ve reemplazada por la notación lambda bajo las mismas limitaciones
+f = lambda x1,..,xn: res1,..,resm
+
+Similar a Octave, para poder captar estos argumentos "adicionales" (posteriores a res1) es necesario poner variables extras tipo
+
+a1,..,am = f(x1,..,xn)
+
+Sip, pueden poner varibles separadas por coma y luego una asignación. Lo que hace Python es tomar las m variables y meterlas en una
+m-upla (como un vector pero más rígido) e igualarlo al resultado "coordenada a coordenada". Esto nos dice que el resultado de f en
+realidad será una m-upla (res1,..,resm), que incluso podemos indexar como un vector. A efectos prácticos, lo pueden tratar como un
+vector, pero tampoco sean animales; si van a tratar el resultado como un vector, es preferible un res = [res1,..,resm] que res1,..,resm
+directamente. 
+
+
+VECTORES Y FOR
+
+Aunque los vectores básicos de Python no pueden usarse para operar matricialmente, tienen otras ventajas. Si tenemos A y B dos vectores
+la suma "+" los concatena y cualquier otra operación es inválida. Como ventaja, la operación "+" entre un vector A y un elemento e
+agrega el elemento e al final del vector A (A+e = [A e]) y tambien funca al reves (e+A= [e A]), aunque es preferible usar la funcion
+"append" con la notación A.append(e) = A+e por cuestiones principalmente de buenas prácticas (con la suma no queda claro si e es un 
+vector o un elemento).
+
+Otro cambio es que los vectores se indexan con [] en lugar de (). Al principio puede parecer tedioso, pero esta notación es mucho más
+clara en códigos con muchos paréntesis. Además, la indexación para un vector de longitud N arranca en 0 y termina en N-1.
+
+Por otro lado, los vectores son muy amigables, dado que puede ponerse cualquier cosa adentro. Por ejemplo, A = [1,"TuVieja",True,1E-6]
+es un vector válido. Es por esto que los vectores en si no tienen un tipo (es claro ver que el vector anterior tiene un int, un string,
+un bool y un float/double). Los STRINGS son considerados vectores de char (caracteres) así que pueden operarse como un vector.
+
+Sin embargo, Python es muy buen pibe con los vectores porque tiene una notación tremendamente copada para los for. En Python, la
+diferencia entre for y while es que for siempre itera a lo largo de elementos de un vector. Por lo tanto, 
+
+for v in V:
+  ..operacion(v)..
+
+Es un ciclo que hace "operacion" para cada elemento v del vector V. Este ciclo es equivalente a
+
+for i in range(0, len(V)):
+  ..operacion(V[i])..
+  
+Recien aparecio nuestra buena amiga la funcion range(n,m). En términos de Octave, es simplemente n:(m-1). Lo copado es que range ya se 
+encarga de que no podamos "pasarnos de indice" al dar los enteros entre n y m-1.
+
+Pero vamos a tener un amigo aún mejor que nos va a suplir la triste pérdida de las operaciones entre vectores de Octave. Básicamente, 
+Python permite utilizar fors para crear vectores de forma más compacta, por lo que
+
+V = [f(i) for i in range(0,N)]
+
+es equivalente a
+
+V = []
+for i in range(0,N):
+  V.append(f(i))
+  
+Por lo tanto, reobtenemos todas nuestras operaciones entre vectores de Octave "+", "-", ".*", "./", ".^" y aún más. A modo de ejemplo,
+si tenemos dos vectores A y B y queremos el producto elemento a elemento A.*B de Octave, escribimos:
+
+[A(i)*B(i) for i in range(0,len(A))]
+
+En particular, podemos aplicar funciones a vectores con esta simple notación. Si tenemos una funcion F y un vector V, podemos calcular
+F(V) con una facilidad de puta madre
+
+[F(v) for v in V]
+
+Así que deja de ser importante fijarse si en las funciones las operaciones tienen el "." o no; las definis para una variable y usas la
+notación de más arriba.
+Aún así, es muy probable que los np.array sigan teniendo las operaciones tipo Octave, pero es importante saberlo.
+
+--------------> FUNCIONES UTILES <--------------
+Esto lo completaré a medida que se me ocurra
+
+AJUSTES NO LINEALES
+
+La documentación de scipy.optimize.curve_fit explica exactamente que significa cada campo argumento y cada campo resultado. La función
+está bastante completa, pero creo que no contempla los errores en X. De todos modos, la notación resulta bastante similar a la
+que usabamos en Octave.
+https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.curve_fit.html
+
