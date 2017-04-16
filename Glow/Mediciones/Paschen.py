@@ -13,6 +13,7 @@ import numpy as np
 import matplotlib.pylab as ppt
 from math import exp, log
 from scipy.optimize import curve_fit
+from math import *
 
 def Corriente(Vb):
     return Vb/149.2
@@ -75,6 +76,8 @@ curve_fit(Paschen, PD, Vd)
 PD2 = [PD[0],PD[1], (PD[2]+PD[5]+PD[6])/3, PD[4],PD[2]]
 Vd2 = [Vd[0],Vd[1], (Vd[2]+Vd[5]+Vd[6])/3, Vd[4],Vd[2]]
 
+
+##Param = curve_fit(Paschen, PD2, Vd2,None,None,False,True,(0,np.inf))
 Param = curve_fit(Paschen, PD2, Vd2)
 pd = np.linspace(min(PD2),max(PD2),1000)
 vd = []
@@ -82,6 +85,11 @@ for p in pd:
     vd.append(Paschen(p,Param[0][0],Param[0][1]))
 ppt.plot(pd,vd)
 ppt.plot(PD2,Vd2,"ro")
-show()
+ppt.xlabel("Pd [mm*Torr]")
+ppt.ylabel("V      [Volts]")
+ppt.text(6,410,"R-Square=0.9386")
+ppt.text(5.75,400,"a=(57±1)V/(mm.Torr)")
+ppt.text(6,390,"b=(-72±6)10^(-3)")
 
-R-square = .8*np.cov(Vd2,vd2)[0][1]/sqrt(np.var(Vd2)*np.var(vd2))
+vd2 = [Paschen(p,Param[0][0],Param[0][1]) for p in PD2]
+Rsquare = .8*np.cov(Vd2,vd2)[0][1]/sqrt(np.var(Vd2)*np.var(vd2))
