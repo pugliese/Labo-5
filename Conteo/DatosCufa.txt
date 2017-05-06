@@ -1,0 +1,16 @@
+Disco rotante a 2V:
+w = (10.82+-0.04)Hz
+Tcr = (36.9+-0.1)mus     A lo Ricci (No necesariamente aplica)
+Tc = (3.45+-0.05)ms       A lo Rapaport v1  -> Cuando la autocorrelacion da 0.75
+Tc = (8.9+-0.6)ms         A lo Rapaport v2 -> Cuando la autocorrelacion da 0.5
+
+
+Periodo en funcion de Voltaje
+T = [0.857, .581, .432, .344, .278, .232] (en segundos)
+ET = [.005, .002, .004, .005, .001, .001] (en segundos)
+V = [1.5, 2, 2.5, 3, 3.6 , 4.2]
+Ajuste w(V) = a*V+b con 
+R^2 = 0.9999 (Si esto no es recta, ya no se que es recta)
+Chi^2=2.78 Weighted Chi-Squared->errores sobrestimados
+a = (1.167+-0.006)Hz/V
+b = (-0.59+-0.02)Hz   Segun esto el motor no arrancaria hasta los ~0.5V
