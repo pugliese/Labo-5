@@ -3,6 +3,7 @@ w = (10.82+-0.04)Hz
 Tcr = (36.9+-0.1)mus     A lo Ricci (No necesariamente aplica)
 Tc = (3.45+-0.05)ms       A lo Rapaport v1  -> Cuando la autocorrelacion da 0.75
 Tc = (8.9+-0.6)ms         A lo Rapaport v2 -> Cuando la autocorrelacion da 0.5
+Tc = (0.29+-0.07)ms     A lo Cufa -> Convolucion RePiola
 
 
 Periodo en funcion de Voltaje
