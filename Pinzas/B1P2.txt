@@ -1,0 +1,127 @@
+# Created by Octave 4.2.0, Mon Jun 05 13:54:03 2017 GMT <unknown@unknown>
+# name: WsAlicex
+# type: matrix
+# rows: 1
+# columns: 3
+ 4.78 5.677382376501351 6.39
+
+
+# name: WsAlicey
+# type: matrix
+# rows: 1
+# columns: 3
+ 4.78 7.460397145839735 6.39
+
+
+# name: WsBobx
+# type: matrix
+# rows: 1
+# columns: 3
+ 5.47 7.26769463941358 6.94
+
+
+# name: WsBoby
+# type: matrix
+# rows: 1
+# columns: 3
+ 5.47 5.535041102226106 6.94
+
+
+# name: WsCarlx
+# type: matrix
+# rows: 1
+# columns: 3
+ 4.78 5.239915671335517 6.39
+
+
+# name: WsCarly
+# type: matrix
+# rows: 1
+# columns: 3
+ 4.78 6.430850021845876 6.39
+
+
+# name: ChiAlicex
+# type: matrix
+# rows: 1
+# columns: 2
+ 9.177486910994762 16.91897760462044
+
+
+# name: ChiAlicey
+# type: matrix
+# rows: 1
+# columns: 2
+ 31.85811518324607 16.91897760462044
+
+
+# name: ChiBobx
+# type: matrix
+# rows: 1
+# columns: 2
+ 6.829277566539924 16.91897760462044
+
+
+# name: ChiBoby
+# type: matrix
+# rows: 1
+# columns: 2
+ 5.323574144486693 16.91897760462044
+
+
+# name: ChiCarlx
+# type: matrix
+# rows: 1
+# columns: 2
+ 5.05360824742268 16.91897760462044
+
+
+# name: ChiCarly
+# type: matrix
+# rows: 1
+# columns: 2
+ 6.548453608247422 16.91897760462044
+
+
+# name: KolAlicex
+# type: matrix
+# rows: 1
+# columns: 2
+ 0.0516524729147787 0.09840614631976935
+
+
+# name: KolAlicey
+# type: matrix
+# rows: 1
+# columns: 2
+ 0.07706641139698006 0.09840614631976935
+
+
+# name: KolBobx
+# type: matrix
+# rows: 1
+# columns: 2
+ 0.0352166040848233 0.0838611925730362
+
+
+# name: KolBoby
+# type: matrix
+# rows: 1
+# columns: 2
+ 0.03570886623802155 0.0838611925730362
+
+
+# name: KolCarlx
+# type: matrix
+# rows: 1
+# columns: 2
+ 0.03117671497391572 0.09764230957201239
+
+
+# name: KolCarlx
+# type: matrix
+# rows: 1
+# columns: 2
+ 0.03117671497391572 0.09764230957201239
+
+

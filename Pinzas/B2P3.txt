@@ -1,0 +1,113 @@
+# Created by Octave 4.2.0, Mon Jun 05 20:23:29 2017 GMT <unknown@unknown>
+# name: ChiAliciax
+# type: matrix
+# rows: 1
+# columns: 2
+ 12.46666666666666 16.91897760462044
+
+
+# name: ChiAliciay
+# type: matrix
+# rows: 1
+# columns: 2
+ 4.755284552845527 16.91897760462044
+
+
+# name: ChiBertox
+# type: matrix
+# rows: 1
+# columns: 2
+ 10.04654377880184 16.91897760462044
+
+
+# name: ChiBertoy
+# type: matrix
+# rows: 1
+# columns: 2
+ 5.198617511520735 16.91897760462044
+
+
+# name: ChiCarlosx
+# type: matrix
+# rows: 1
+# columns: 2
+ 7.340566037735847 16.91897760462044
+
+
+# name: ChiCarlosy
+# type: matrix
+# rows: 1
+# columns: 2
+ 3.826415094339622 16.91897760462044
+
+
+# name: ChiDavidx
+# type: matrix
+# rows: 1
+# columns: 2
+ 11.6 16.91897760462044
+
+
+# name: ChiDavidy
+# type: matrix
+# rows: 1
+# columns: 2
+ 7.136082474226804 16.91897760462044
+
+
+# name: KolAliciax
+# type: matrix
+# rows: 1
+# columns: 2
+ 0.04832982935231511 0.0613135351573854
+
+
+# name: KolAliciay
+# type: matrix
+# rows: 1
+# columns: 2
+ 0.0257608530046376 0.0613135351573854
+
+
+# name: KolBertox
+# type: matrix
+# rows: 1
+# columns: 2
+ 0.04995372772403106 0.09232281572908978
+
+
+# name: KolBertoy
+# type: matrix
+# rows: 1
+# columns: 2
+ 0.0257608530046376 0.0613135351573854
+
+
+# name: KolCarlosx
+# type: matrix
+# rows: 1
+# columns: 2
+ 0.05409691730061722 0.06604743864029397
+
+
+# name: KolCarlosx
+# type: matrix
+# rows: 1
+# columns: 2
+ 0.05409691730061722 0.06604743864029397
+
+
+# name: KolDavidx
+# type: matrix
+# rows: 1
+# columns: 2
+ 0.05953286018639681 0.09764230957201239
+
+
+# name: KolDavidy
+# type: matrix
+# rows: 1
+# columns: 2
+ 0.03270814043486642 0.09764230957201239
+
+
