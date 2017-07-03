@@ -650,8 +650,7 @@ Dx = X(2:N)-X(1:N-1);
 Dy = Y(2:N)-Y(1:N-1);
 tD=max(dataD(:,1))/length(dataD(:,1));
 
-Dxs = [Dif(Ax,tA) Dif(Bx,tB) Dif(Cx, tC) Dif(Dx, tD)]
-Dys = [Dif(Ay,tA) Dif(By,tB) Dif(Cy, tC) Dif(Dy, tD)]
+
 
 
 set(0, "defaultaxesfontsize", 22);
@@ -681,3 +680,6 @@ plot(E, 100*stdnormal_pdf((E/.105-mean(By))/std(By)), "r-", "linewidth", 5)
 function res=Dif(X,t)
   res = var(X)/(2*t);
 endfunction
+
+Dxs = [Dif(Ax,tA) Dif(Bx,tB) Dif(Cx, tC) Dif(Dx, tD)]
+Dys = [Dif(Ay,tA) Dif(By,tB) Dif(Cy, tC) Dif(Dy, tD)]
