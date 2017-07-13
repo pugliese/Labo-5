@@ -174,28 +174,28 @@ def aux1_2(T,L,N): #T fijo,L vector de dimensiones--- Usar esto para el item b
     plt.subplots_adjust(top=0.92, bottom=0.08, left=0.10, right=0.95, hspace=0.25,wspace=0.35)
     
 ############ ejercicio2 ##############
+# Parametros copados (a ojo)
+# kv = 100
+# 50*L*L < N < 100*L*L
 
 def aux2(L,Ts,N, kv):
     k = kv*L*L
-    print(k) 
     U = np.zeros(len(Ts))
     M = np.zeros(len(Ts))
     Cv = np.zeros(len(Ts))
     X = np.zeros(len(Ts))
-    for j in range (len(Ts)):
-        S = 2*(np.random.rand(L,L)>0.5) -1;
-        S = Termalizar(S,Ts[j],k)            
-        E, R = Muestras(S,L,N,Ts[j])
-        E = Decimar(E)
-        R = Decimar(R)
-        if (Ts[j]<2):
+    S = 2*(np.random.rand(L,L)>0.5) -1;
+    for j in range (1,len(Ts)+1):
+        S = Termalizar(S,Ts[-j],k)            
+        E, R = Muestras(S,L,N,Ts[-j])
+        if (Ts[-j]<2):
             W = np.abs(R)
         else:
             W = R
-        U[j] = np.mean(E)
-        M[j] = np.mean(R)
-        Cv[j] = np.var(E)/(Ts[j]**2)
-        X[j] = np.var(R)/(Ts[j])
+        U[-j] = np.mean(E)
+        M[-j] = np.mean(R)
+        Cv[-j] = np.var(E)/(Ts[-j]**2)
+        X[-j] = np.var(R)/(Ts[-j])
         #Ver(S,j+3)
     plt.figure(1)
     plt.subplot(211)
@@ -229,11 +229,3 @@ def Ver(S,j=10):
     #plt.title("n=%i beta=%.2f mag=%.2f energia=%.2f"%(n,beta,magnet[n],energia[n]))
     plt.draw()
     
-    
-###### Magia #####
-
-def Decimar(V,d=100):
-    res = np.zeros(len(V)/d)
-    for i in range(len(V)/d):
-        res[i] = V[i*d]
-    return res
