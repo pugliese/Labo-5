@@ -23,7 +23,7 @@ def calcEnergia(S):
     res=0
     for i in range(n):
         for j in range(m):
-            res += S[i,j]*sumvec(S,i,j)/2
+            res += -S[i,j]*sumvec(S,i,j)/2
     return res
 
 def ising2Dpaso(S, T):
@@ -31,7 +31,7 @@ def ising2Dpaso(S, T):
     m = np.size(S,1)
     i = randint(0,n-1)
     j = randint(0,m-1)
-    dE = 2*S[i,j]*sumvec(S,i,j)
+    dE = float(2*S[i,j]*sumvec(S,i,j))
     p = np.exp(-dE/T)
     r = np.random.rand(1,1)
     if(r<p):
@@ -55,7 +55,7 @@ def Termalizacion(L,N,T):
 def Termalizar (S,T,k):
     for i in range (k):
         S, dE, dM = ising2Dpaso(S,T)
-    return S,dE,dM
+    return S
 
 def Muestras(S,L,N,T):
     energia = np.zeros(N)
@@ -76,8 +76,9 @@ def Critico(L,Ts,N, kv):
     Cv = np.zeros(len(Ts))
     X = np.zeros(len(Ts))
     for j in range (len(Ts)):
-        S,dE,dM = Termalizar(S,Ts[j],k)            
+        S = Termalizar(S,Ts[j],k)            
         E, R = Muestras(S,L,N,Ts[j])
+        #print np.mean(E), np.mean(R)
         U[j] = np.mean(E)
         M[j] = np.mean(R)
         Cv[j] =np.var(E)/Ts[j]**2
@@ -182,34 +183,57 @@ def aux2(L,Ts,N, kv):
     Cv = np.zeros(len(Ts))
     X = np.zeros(len(Ts))
     for j in range (len(Ts)):
-        Saux = 2*(np.random.rand(L,L)>0.5) -1;
-        S,a,b = Termalizar(Saux,Ts[j],k)            
+        S = 2*(np.random.rand(L,L)>0.5) -1;
+        S = Termalizar(S,Ts[j],k)            
         E, R = Muestras(S,L,N,Ts[j])
+        E = Decimar(E)
+        R = Decimar(R)
         if (Ts[j]<2):
             W = np.abs(R)
         else:
             W = R
         U[j] = np.mean(E)
-        M[j] = np.mean(W)
+        M[j] = np.mean(R)
         Cv[j] = np.var(E)/(Ts[j]**2)
         X[j] = np.var(R)/(Ts[j])
+        #Ver(S,j+3)
     plt.figure(1)
     plt.subplot(211)
     plt.plot(Ts,U,'o--')
     plt.xlabel('Temperatura', fontsize = 14)
     plt.ylabel('Energia media',fontsize = 14)
     plt.subplot(212)
-    plt.plot(Ts,M,'o--')
+    plt.plot(Ts,np.abs(M),'o--')
     plt.xlabel('Temperatura', fontsize = 14)
-    plt.ylabel('Magnetización media',fontsize = 14)
+    plt.ylabel('Magnetizacion media',fontsize = 14)
     plt.subplots_adjust(top=0.92, bottom=0.08, left=0.10, right=0.95, hspace=0.25,wspace=0.35)
     plt.figure(2)
     plt.subplot(211)
     plt.plot(Ts,Cv,'o--')
     plt.xlabel('Temperatura', fontsize = 14)
-    plt.ylabel('Calor específico',fontsize = 14)
+    plt.ylabel('Calor especifico',fontsize = 14)
     plt.subplot(212)
     plt.plot(Ts,X,'o--')
     plt.xlabel('Temperatura', fontsize = 14)
-    plt.ylabel('Suceptibilidad magnética',fontsize = 14)
+    plt.ylabel('Suceptibilidad magnetica',fontsize = 14)
     plt.subplots_adjust(top=0.92, bottom=0.08, left=0.10, right=0.95, hspace=0.25,wspace=0.35)
+    
+    
+    
+    
+######### Visualizar #########
+
+def Ver(S,j=10):
+    plt.figure(j)
+    plt.imshow(S,interpolation='none')
+    #plt.title("n=%i beta=%.2f mag=%.2f energia=%.2f"%(n,beta,magnet[n],energia[n]))
+    plt.draw()
+    
+    
+###### Magia #####
+
+def Decimar(V,d=100):
+    res = np.zeros(len(V)/d)
+    for i in range(len(V)/d):
+        res[i] = V[i*d]
+    return res
