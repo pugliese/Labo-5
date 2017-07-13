@@ -92,7 +92,7 @@ def Correlacion (L,T,N,k):
     S1S2f = np.zeros(L/2)
 #    S1S2c = np.zeros(L)
     for i in range(N):
-        S, dE, dM = ising2Dpaso(S,1./T);
+        S, dE, dM = ising2Dpaso(S,T);
         for j in range(L/2):
 #            Sf[j] += float(S[0,j])/N;
             Sc[j] += float(S[j,0])/N;
@@ -124,7 +124,7 @@ def aux1_1(T,L,N): #T vector de temperatura, L fijo--- Usar eso para el item a
     Lin = ['s','^','--']
     for i in range(d):
         S = 2*(np.random.rand(L,L)>0.5) -1
-        y[i,:] , x[i,:] = Muestras(S,L,N,1./T[i])
+        y[i,:] , x[i,:] = Muestras(S,L,N,T[i])
         plt.figure(1)
         plt.subplot(211)
         plt.plot(P,np.abs(x[i,:])/(L*L),Lin[i])
@@ -153,7 +153,7 @@ def aux1_2(T,L,N): #T fijo,L vector de dimensiones--- Usar esto para el item b
     for i in range(d):
         a = int(L[i])
         S = 2*(np.random.rand(a,a)>0.5) -1
-        y[i,:] , x[i,:] = Muestras(S,a,N,1./T)
+        y[i,:] , x[i,:] = Muestras(S,a,N,T)
     for i in range(d):
         plt.figure(1)
         plt.subplot(211)
@@ -184,15 +184,15 @@ def aux2(L,Ts,N, kv):
     for j in range (len(Ts)):
         Saux = 2*(np.random.rand(L,L)>0.5) -1;
         S,a,b = Termalizar(Saux,Ts[j],k)            
-        E, R = Muestras(S,L,N,1./Ts[j])
+        E, R = Muestras(S,L,N,Ts[j])
         if (Ts[j]<2):
             W = np.abs(R)
         else:
             W = R
-        U[j] = np.mean(E)/(L*L)
-        M[j] = np.mean(W)/(L*L)
-        Cv[j] = np.var(E)/(L*L*Ts[j]**2)
-        X[j] = np.var(R)/(L*L*Ts[j])
+        U[j] = np.mean(E)
+        M[j] = np.mean(W)
+        Cv[j] = np.var(E)/(Ts[j]**2)
+        X[j] = np.var(R)/(Ts[j])
     plt.figure(1)
     plt.subplot(211)
     plt.plot(Ts,U,'o--')
