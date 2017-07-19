@@ -186,7 +186,7 @@ def aux2(L,Ts,N, kv):
     X = np.zeros(len(Ts))
     S = 2*(np.random.rand(L,L)>0.5) -1;
     for j in range (1,len(Ts)+1):
-        S = Termalizar(S,Ts[-j],k)            
+        S = Termalizar(S,Ts[-j],k)      
         E, R = Muestras(S,L,N,Ts[-j])
         if (Ts[-j]<2):
             W = np.abs(R)

@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -39,14 +41,16 @@ LdO = [391, 427, 777] ##Longitudes de onda
 res1 = np.zeros((len(LdO),len(Ib)))
 for j in range(len(LdO)):
     for i in range(len(Ib)):
-        x = '27-06/'+str(LdO[j])+'nm/Bajada/'+str(Vb[i])+'V-'+str(Ib[i])+'V'+'.csv'
+        #x = '27-06/'+str(LdO[j])+'nm/Bajada/'+str(Vb[i])+'V-'+str(Ib[i])+'V'+'.csv'
+        x = 'NombresCorregidos/'+str(LdO[j])+'nm/Bajada/'+str(Vb[i])+'V-'+str(Ib[i])+'V'+'.csv'
         data = cargar(x)
         res1[j,i] = np.mean(data[5,:])
 
 res2 = np.zeros((len(LdO),len(Is)))
 for j in range(len(LdO)):
     for i in range(len(Is)):
-        x = '27-06/'+str(LdO[j])+'nm/Subida/'+str(Vs[i])+'V-'+str(Is[i])+'V'+'.csv'
+        #x = '27-06/'+str(LdO[j])+'nm/Subida/'+str(Vs[i])+'V-'+str(Is[i])+'V'+'.csv'
+        x = 'NombresCorregidos/'+str(LdO[j])+'nm/Subida/'+str(Vs[i])+'V-'+str(Is[i])+'V'+'.csv'
         data = cargar(x)
         res2[j,i] = np.mean(data[5,:])
 col = ['k','b','r']
@@ -73,6 +77,7 @@ plt.xlabel('Corriente[mA]')
 plt.subplot(212)
 plt.legend(Leg)
 plt.ylabel('Intensidad')
-plt.xlabel('Tensión[V]')
+plt.xlabel('Tension[V]')
 plt.subplots_adjust(top=0.92, bottom=0.08, left=0.10, right=0.95, hspace=0.25,wspace=0.35)
 plt.show()
+
