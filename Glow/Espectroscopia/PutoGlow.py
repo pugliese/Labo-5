@@ -2,6 +2,7 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
+import scipy.stats as sc
 
 def cargar(x):
     file = open(x, "r")  ## Abro el archivo en modo de lectura
@@ -81,3 +82,62 @@ plt.xlabel('Tension[V]')
 plt.subplots_adjust(top=0.92, bottom=0.08, left=0.10, right=0.95, hspace=0.25,wspace=0.35)
 plt.show()
 
+Aj_s = np.zeros((len(LdO),5))
+Aj_b = np.zeros((len(LdO),5))
+for j in range(len(LdO)):
+    Aj_b[j,:] = sc.linregress(Ib,res1[j,:])
+    Aj_s[j,:] = sc.linregress(Is,res2[j,:])
+
+# Ajustes de las rectas
+
+plt.figure(2)
+plt.plot(LdO,Aj_s[:,0],"ro")
+plt.plot(LdO,Aj_b[:,0],"k^")
+plt.grid()
+plt.xlabel("Longitud de onda")
+plt.ylabel("Pendiente")
+plt.legend(["Subida","Bajada"])
+
+
+plt.figure(3)
+plt.plot(LdO,Aj_s[:,1],"ro")
+plt.plot(LdO,Aj_b[:,1],"k^")
+plt.grid()
+plt.xlabel("Longitud de onda")
+plt.ylabel("Ordenada")
+plt.legend(["Subida","Bajada"])
+
+
+# Caracterizacion de la emision
+
+def Lambda(Z,k): # Z es el numero atomico y k es el nivel del que esta decayendo (decae de k a k-1)
+    Lambda_o = 90.11  # Acumulacion turbia de constantes que googlie
+    return Lambda_o/(2*k-1)*(k*(k-1)/Z)**2
+
+X_N = np.linspace(1,10,10)
+X_O = np.linspace(1,10,10)
+X_Ar = np.linspace(1,18,18)
+
+plt.plot(Lambda(7,X_N),X_N, "ro")
+plt.plot(Lambda(8,X_O),X_O, "bo")
+plt.plot(Lambda(18,X_Ar),X_Ar, "ko")
+plt.grid()
+plt.xlabel("Longitud de onda")
+plt.ylabel("Nivel")
+plt.plot([391, 391],[0,18])
+plt.plot([427, 427],[0,18])
+plt.plot([777, 777],[0,18])
+plt.axis([0,800,0,18])
+plt.legend(["Nitrogeno", "Oxigeno","Argon"])
+
+
+I_N_b = res1[0,:]+res1[2,:] ## Intensidad emitida por el nitrogeno
+I_N_s = res2[0,:]+res2[2,:]
+I_O_b = res1[1,:]  ## Intensidad emitida por el oxigeno
+I_O_s = res2[1,:]
+
+plt.plot(Is,I_N_s/(I_N_s+I_O_s), "ro")
+plt.plot(Ib,I_N_b/(I_N_b+I_O_b), "bo")
+
+C_N_s = (np.mean(I_N_s/(I_N_s+I_O_s)),np.std(I_N_s/(I_N_s+I_O_s)))
+C_N_b = (np.mean(I_N_b/(I_N_b+I_O_b)),np.std(I_N_b/(I_N_b+I_O_b)))
