@@ -30,7 +30,7 @@ LdO = [391, 427, 777] ##Longitudes de onda
 
 """
 [0,:] = 'Time[s]'
-[1,:] = 'Mean Value[Inensity]'
+[1,:] = 'Mean Value[Intensity]'
 [2,:] = 'Variance[-]'
 [3,:] = 'Standard Deviation[Intensity]'
 [4,:] = 'Weighted Average[nm(vac)]'
@@ -141,3 +141,6 @@ plt.plot(Ib,I_N_b/(I_N_b+I_O_b), "bo")
 
 C_N_s = (np.mean(I_N_s/(I_N_s+I_O_s)),np.std(I_N_s/(I_N_s+I_O_s)))
 C_N_b = (np.mean(I_N_b/(I_N_b+I_O_b)),np.std(I_N_b/(I_N_b+I_O_b)))
+
+C_O_s = (np.mean(I_O_s/(I_N_s+I_O_s)),np.std(I_O_s/(I_N_s+I_O_s)))
+C_O_b = (np.mean(I_O_b/(I_N_b+I_O_b)),np.std(I_O_b/(I_N_b+I_O_b)))
