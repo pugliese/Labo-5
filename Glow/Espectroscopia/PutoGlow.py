@@ -144,3 +144,30 @@ C_N_b = (np.mean(I_N_b/(I_N_b+I_O_b)),np.std(I_N_b/(I_N_b+I_O_b)))
 
 C_O_s = (np.mean(I_O_s/(I_N_s+I_O_s)),np.std(I_O_s/(I_N_s+I_O_s)))
 C_O_b = (np.mean(I_O_b/(I_N_b+I_O_b)),np.std(I_O_b/(I_N_b+I_O_b)))
+
+
+
+### GRAFICOS PARA LA PRESENTACION
+
+#Intensidades Nitrogeno 
+#Bajada y bajda
+plt.plot([],[], "ko--")
+plt.plot([],[], "ks--")
+plt.plot(np.array(Ib)/.15,100*res1[0,:]/(I_N_b+I_O_b), "bo--")
+plt.plot(np.array(Ib)/.15,100*res1[2,:]/(I_N_b+I_O_b), "bs--")
+plt.plot(np.array(Is)/.15,100*res2[0,:]/(I_N_s+I_O_s), "ro--")
+plt.plot(np.array(Is)/.15,100*res2[2,:]/(I_N_s+I_O_s), "rs--")
+plt.xlabel("Corriente [mA]",fontsize=16)
+plt.ylabel("Intensidad relativa [%]",fontsize=16)
+plt.legend(["391nm", "777nm"],fontsize=16)
+plt.savefig("Dist_Nit.png")
+plt.close()
+#Total
+plt.tick_params(axis='both', which='major', labelsize=12)
+plt.plot(np.array(Ib)/.15,100*I_N_b/(I_N_b+I_O_b), "bo--")
+plt.plot(np.array(Is)/.15,100*I_N_s/(I_N_s+I_O_s), "ro--")
+plt.xlabel("Corriente [mA]",fontsize=16)
+plt.ylabel("Intensidad relativa[%]",fontsize=16)
+plt.title("Nitrogeno")
+plt.savefig("Int_Nit.png")
+plt.close()
