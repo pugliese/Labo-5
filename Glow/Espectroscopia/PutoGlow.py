@@ -71,6 +71,14 @@ Vs = [1000*Vs[i] for i in range(len(Vs))]
 
 print(Ib)
 
+## Ignoro los primeros puntos porque tienen intensidad menor al ruido
+Ib = Ib[1:]
+Vb = Vb[1:]
+Is = Is[1:]
+Vs = Vs[1:]
+res1 = res1[:,1:]
+res2 = res2[:,1:]
+
 Leg = ['391nm(bajada)','391nm(subida)','427nm(bajada)','427nm(subida)','777nm(bajada)','777nm(subida)']
 for j in range(len(LdO)):
     plt.figure(1)
@@ -91,6 +99,8 @@ plt.ylabel('Intensidad')
 plt.xlabel('Tension[V]')
 plt.subplots_adjust(top=0.92, bottom=0.08, left=0.10, right=0.95, hspace=0.25,wspace=0.35)
 plt.show()
+plt.savefig("IntVsCorr.png")
+plt.close()
 
 Aj_s = np.zeros((len(LdO),5))
 Aj_b = np.zeros((len(LdO),5))
@@ -99,7 +109,7 @@ for j in range(len(LdO)):
     Aj_s[j,:] = sc.linregress(Is,res2[j,:])
 
 # Ajustes de las rectas
-
+"""
 plt.figure(2)
 plt.plot(LdO,Aj_s[:,0],"ro")
 plt.plot(LdO,Aj_b[:,0],"k^")
@@ -116,7 +126,7 @@ plt.grid()
 plt.xlabel("Longitud de onda")
 plt.ylabel("Ordenada")
 plt.legend(["Subida","Bajada"])
-
+"""
 
 # Caracterizacion de la emision
 
@@ -138,7 +148,7 @@ plt.plot([391, 391],[0,18])
 plt.plot([427, 427],[0,18])
 plt.plot([777, 777],[0,18])
 plt.axis([0,800,0,18])
-plt.legend(["Nitrogeno", "Oxigeno","Argon"])
+plt.legend(["Nitrógeno", "Oxígeno","Argón"])
 
 
 I_N_b = res1[0,:]+res1[2,:] ## Intensidad emitida por el nitrogeno
@@ -146,8 +156,8 @@ I_N_s = res2[0,:]+res2[2,:]
 I_O_b = res1[1,:]  ## Intensidad emitida por el oxigeno
 I_O_s = res2[1,:]
 
-plt.plot(Is,I_N_s/(I_N_s+I_O_s), "ro")
-plt.plot(Ib,I_N_b/(I_N_b+I_O_b), "bo")
+#plt.plot(Is,I_N_s/(I_N_s+I_O_s), "ro")
+#plt.plot(Ib,I_N_b/(I_N_b+I_O_b), "bo")
 
 C_N_s = (np.mean(I_N_s/(I_N_s+I_O_s)),np.std(I_N_s/(I_N_s+I_O_s)))
 C_N_b = (np.mean(I_N_b/(I_N_b+I_O_b)),np.std(I_N_b/(I_N_b+I_O_b)))
@@ -158,7 +168,6 @@ C_O_b = (np.mean(I_O_b/(I_N_b+I_O_b)),np.std(I_O_b/(I_N_b+I_O_b)))
 
 
 ### GRAFICOS PARA LA PRESENTACION
-
 #Intensidades Nitrogeno 
 #Bajada y bajda
 plt.plot([],[], "ko--")
