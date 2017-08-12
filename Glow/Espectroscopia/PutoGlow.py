@@ -28,6 +28,9 @@ Vs = [0.557, 0.625, 0.69, 0.753, 0.814, 0.875, 0.90] ##Los de la izquierda
 
 LdO = [391, 427, 777] ##Longitudes de onda
 
+##391, 427 y 777 emite oxigeno
+##395, 424 emite nitrogeno
+## 777 emite cobre
 """
 [0,:] = 'Time[s]'
 [1,:] = 'Mean Value[Intensity]'
@@ -37,8 +40,13 @@ LdO = [391, 427, 777] ##Longitudes de onda
 [5,:] = 'Max Value[Intensity]'      
  """     
 
-#x = "27-06/777nm/bajada/0.56V-0.30V.csv"
-#data = cargar(x)
+x = "27-06/Ruido.csv"
+dataruido = cargar(x)
+Ruido = np.mean(dataruido[5,:])
+ErrorRuido = np.var(dataruido[5,:])
+
+print(Ruido, ErrorRuido)
+
 res1 = np.zeros((len(LdO),len(Ib)))
 for j in range(len(LdO)):
     for i in range(len(Ib)):
@@ -60,6 +68,8 @@ Ib = [Ib[i]/150 for i in range(len(Ib))]
 Is = [Is[i]/150 for i in range(len(Is))]
 Vb = [1000*Vb[i] for i in range(len(Vb))]
 Vs = [1000*Vs[i] for i in range(len(Vs))]
+
+print(Ib)
 
 Leg = ['391nm(bajada)','391nm(subida)','427nm(bajada)','427nm(subida)','777nm(bajada)','777nm(subida)']
 for j in range(len(LdO)):
@@ -153,21 +163,45 @@ C_O_b = (np.mean(I_O_b/(I_N_b+I_O_b)),np.std(I_O_b/(I_N_b+I_O_b)))
 #Bajada y bajda
 plt.plot([],[], "ko--")
 plt.plot([],[], "ks--")
-plt.plot(np.array(Ib)/.15,100*res1[0,:]/(I_N_b+I_O_b), "bo--")
-plt.plot(np.array(Ib)/.15,100*res1[2,:]/(I_N_b+I_O_b), "bs--")
-plt.plot(np.array(Is)/.15,100*res2[0,:]/(I_N_s+I_O_s), "ro--")
-plt.plot(np.array(Is)/.15,100*res2[2,:]/(I_N_s+I_O_s), "rs--")
+plt.plot(1000*np.array(Ib),100*res1[0,:]/(I_N_b+I_O_b), "bo--")
+plt.plot(1000*np.array(Ib),100*res1[2,:]/(I_N_b+I_O_b), "bs--")
+plt.plot(1000*np.array(Is),100*res2[0,:]/(I_N_s+I_O_s), "ro--")
+plt.plot(1000*np.array(Is),100*res2[2,:]/(I_N_s+I_O_s), "rs--")
 plt.xlabel("Corriente [mA]",fontsize=16)
 plt.ylabel("Intensidad relativa [%]",fontsize=16)
 plt.legend(["391nm", "777nm"],fontsize=16)
+plt.title("Distribución de nitrógeno", fontsize = 18)
 plt.savefig("Dist_Nit.png")
 plt.close()
-#Total
-plt.tick_params(axis='both', which='major', labelsize=12)
-plt.plot(np.array(Ib)/.15,100*I_N_b/(I_N_b+I_O_b), "bo--")
-plt.plot(np.array(Is)/.15,100*I_N_s/(I_N_s+I_O_s), "ro--")
+#Total de aire
+plt.plot([],[], "ko--")
+plt.plot([],[], "ks--")
+plt.plot(1000*np.array(Ib),100*I_N_b/(I_N_b+I_O_b), "bo--")
+plt.plot(1000*np.array(Ib),100*I_O_b/(I_N_b+I_O_b), "bs--")
+plt.plot(1000*np.array(Is),100*I_N_s/(I_N_s+I_O_s), "ro--")
+plt.plot(1000*np.array(Is),100*I_O_s/(I_N_s+I_O_s), "rs--")
 plt.xlabel("Corriente [mA]",fontsize=16)
 plt.ylabel("Intensidad relativa[%]",fontsize=16)
-plt.title("Nitrogeno")
+plt.title("Distribución en aire", fontsize = 18)
+plt.legend(['Nitrógeno','Oxígeno'],fontsize = 16)
+plt.savefig("Dist_Aire.png")
+plt.close()
+##Total de Nitrogreno
+plt.tick_params(axis='both', which='major', labelsize=12)
+plt.plot(1000*np.array(Ib),100*I_N_b/(I_N_b+I_O_b), "bo--")
+plt.plot(1000*np.array(Is),100*I_N_s/(I_N_s+I_O_s), "ro--")
+plt.xlabel("Corriente [mA]",fontsize=16)
+plt.ylabel("Intensidad relativa[%]",fontsize=16)
+plt.title("Distribución de nitrógeno en aire", fontsize = 18)
 plt.savefig("Int_Nit.png")
 plt.close()
+##Total de Oxigeno
+plt.tick_params(axis='both', which='major', labelsize=12)
+plt.plot(1000*np.array(Ib),100*I_O_b/(I_N_b+I_O_b), "bo--")
+plt.plot(1000*np.array(Is),100*I_O_s/(I_N_s+I_O_s), "ro--")
+plt.xlabel("Corriente [mA]",fontsize=16)
+plt.ylabel("Intensidad relativa[%]",fontsize=16)
+plt.title("Distribución de oxígeno en aire", fontsize = 18)
+plt.savefig("Int_O.png")
+plt.close()
+
