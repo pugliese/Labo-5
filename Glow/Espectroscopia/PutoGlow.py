@@ -40,12 +40,12 @@ LdO = [391, 427, 777] ##Longitudes de onda
 [5,:] = 'Max Value[Intensity]'      
  """     
 
-x = "27-06/Ruido.csv"
-dataruido = cargar(x)
-Ruido = np.mean(dataruido[5,:])
-ErrorRuido = np.var(dataruido[5,:])
+#x = "27-06/Ruido.csv"
+#dataruido = cargar(x)
+#Ruido = np.mean(dataruido[5,:])
+#ErrorRuido = np.var(dataruido[5,:])
 
-print(Ruido, ErrorRuido)
+#print(Ruido, ErrorRuido)
 
 res1 = np.zeros((len(LdO),len(Ib)))
 for j in range(len(LdO)):
@@ -69,9 +69,8 @@ Is = [Is[i]/150 for i in range(len(Is))]
 Vb = [1000*Vb[i] for i in range(len(Vb))]
 Vs = [1000*Vs[i] for i in range(len(Vs))]
 
-print(Ib)
-
 ## Ignoro los primeros puntos porque tienen intensidad menor al ruido
+
 Ib = Ib[1:]
 Vb = Vb[1:]
 Is = Is[1:]
@@ -82,22 +81,13 @@ res2 = res2[:,1:]
 Leg = ['391nm(bajada)','391nm(subida)','427nm(bajada)','427nm(subida)','777nm(bajada)','777nm(subida)']
 for j in range(len(LdO)):
     plt.figure(1)
-    plt.subplot(211)
-    plt.plot(Ib,res1[j,:],str(col[j])+'o--')
-    plt.plot(Is,res2[j,:],str(col[j])+'s--')
-    plt.subplot(212)
-    plt.plot(Vb,res1[j,:],str(col[j])+'o--')
-    plt.plot(Vs,res2[j,:],str(col[j])+'s--')
+    plt.plot(1000*np.array(Ib),res1[j,:],str(col[j])+'o--')
+    plt.plot(1000*np.array(Is),res2[j,:],str(col[j])+'s--')
 plt.figure(1)
-plt.subplot(211)
+plt.title('Intensidades de los picos principales',fontsize = 18)
 plt.legend(Leg)
-plt.ylabel('Intensidad')
-plt.xlabel('Corriente[mA]')
-plt.subplot(212)
-plt.legend(Leg)
-plt.ylabel('Intensidad')
-plt.xlabel('Tension[V]')
-plt.subplots_adjust(top=0.92, bottom=0.08, left=0.10, right=0.95, hspace=0.25,wspace=0.35)
+plt.ylabel('Intensidad[lx.s]',fontsize = 16)
+plt.xlabel('Corriente[mA]',fontsize = 16)
 plt.show()
 plt.savefig("IntVsCorr.png")
 plt.close()
@@ -137,7 +127,7 @@ def Lambda(Z,k): # Z es el numero atomico y k es el nivel del que esta decayendo
 X_N = np.linspace(1,10,10)
 X_O = np.linspace(1,10,10)
 X_Ar = np.linspace(1,18,18)
-
+"""
 plt.plot(Lambda(7,X_N),X_N, "ro")
 plt.plot(Lambda(8,X_O),X_O, "bo")
 plt.plot(Lambda(18,X_Ar),X_Ar, "ko")
@@ -150,7 +140,7 @@ plt.plot([777, 777],[0,18])
 plt.axis([0,800,0,18])
 plt.legend(["Nitrógeno", "Oxígeno","Argón"])
 
-
+"""
 I_N_b = res1[0,:]+res1[2,:] ## Intensidad emitida por el nitrogeno
 I_N_s = res2[0,:]+res2[2,:]
 I_O_b = res1[1,:]  ## Intensidad emitida por el oxigeno
